@@ -43,3 +43,30 @@ let myUser = new (function () {
 
 console.log(myUser); // {name: "John", isAdmin: false}
 // This constructor can’t be called again, because it is not saved anywhere, just created and called. So this trick aims to encapsulate the code that constructs the single object, without future reuse.
+
+//Constructor mode test: new.target
+// -------------------------------------
+
+function Listing() {
+  console.log(new.target);
+}
+
+//without 'new' keyword;
+Listing(); //// undefined
+
+//with 'new' keyword;
+new Listing(); //// function User { ... }
+//That can be used inside the function to know whether it was called with new, “in constructor mode”, or without it, “in regular mode”.
+
+function Listing1(name) {
+  if (!new.target) {
+    // // if you run me without new
+    return new Listing1(name); //// ...I will add new for you
+  }
+
+  this.name = name;
+}
+
+let johana = Listing1('Johana'); //// redirects call to new User
+console.log(johana.name); //Johana
+//This approach is sometimes used in libraries to make the syntax more flexible. So that people may call the function with or without new, and it still works.
