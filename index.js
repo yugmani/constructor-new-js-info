@@ -131,3 +131,19 @@ myUser1 = {
    sayHi: function() { ... }
 }
 */
+
+// TASKS
+// *************************************
+
+//1. Two functions – one object
+// -----------------------------------
+
+// Is it possible to create functions A and B so that new A() == new B()?
+let obj = {};
+
+function A(){ return obj;}
+function B(){ return obj;}
+
+console.log(new A() == new B());  //true
+// If a function returns an object then new returns it instead of this.
+
